@@ -32,7 +32,7 @@ class Produktionsenhed:
         self.navne = [Navn(n) for n in obj.get("navne", [])]
         self.p_nummer = obj.get("pNummer", None)
         self.postadresse = [Adresse(a) for a in obj.get("postadresse", [])]
-        self.metadata = obj.get("produktionsEnhedMetadata", None)
+        self.metadata = Metadata(obj.get("produktionsEnhedMetadata", None))
         self.reklamebeskyttet = obj.get("reklamebeskyttet", None)
         self.samt_id = obj.get("samtId", None)
         self.sidst_indlaest = parse_date_time(obj.get("sidstIndlaest", None))
@@ -40,6 +40,23 @@ class Produktionsenhed:
         self.telefax_nummer = [Kontaktoplysning(k) for k in obj.get("telefaxNummer", [])]
         self.telefon_nummer = [Kontaktoplysning(k) for k in obj.get("telefonNummer", [])]
         self.virksomhedsrelation = [Virksomhedsrelation(v) for v in obj.get("virksomhedsrelation", [])]
+
+
+class Metadata:
+    def __init__(self, obj):
+        obj = obj or defaultdict(lambda: None)
+        self.nyeste_aarsbeskaeftigelse = obj.get("nyesteAarsbeskaeftigelse", None)
+        self.nyeste_kvartalsbeskaeftigelse = obj.get("nyesteKvartalsbeskaeftigelse", None)
+        self.nyeste_maanedsbeskaeftigelse = obj.get("nyesteErstMaanedsbeskaeftigelse", None)
+        self.nyeste_beliggenhedsadresse = Adresse(obj.get("nyesteBeliggenhedsadresse", None))
+        self.nyeste_bibranche1 = obj.get("nyesteBibranche1", None)
+        self.nyeste_bibranche2 = obj.get("nyesteBibranche2", None)
+        self.nyeste_bibranche3 = obj.get("nyesteBibranche3", None)
+        self.nyeste_cvr_nummer_relation = obj.get("nyesteCvrNummerRelation", None)
+        self.nyeste_hovedbranche = Branche(obj.get("nyesteHovedbranche", None))
+        self.nyeste_kontaktoplysninger = obj.get("nyesteKontaktoplysninger", None)
+        self.nyeste_navn = Navn(obj.get("nyesteNavn", None))
+        self.sammensat_status = obj.get("sammensatStatus", None)
 
 
 class Aarsbeskaeftigelse:
