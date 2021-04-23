@@ -34,7 +34,7 @@ class Virksomhed:
         self.naermeste_fremtidige_dato = obj.get("naermesteFremtidigeDato", None)
         self.navne = [Navn(n) for n in obj.get("navne", [])]
         self.oblogatorisk_email = ObligatoriskEmail(obj.get("obligatoriskEmail", None))
-        # penheder
+        self.penheder = [Produktionsenhed(p) for p in obj.get("penheder", [])]
         self.postadresse = [Adresse(a) for a in obj.get("postadresse", [])]
         self.reg_nummer = RegNummer(obj.get("regNummer", None))
         self.reklamebeskyttet = obj.get("reklamebeskyttet", None)
@@ -49,7 +49,7 @@ class Virksomhed:
         self.telefon_nummer = [Kontaktoplysning(k) for k in obj.get("telefonNummer", [])]
         self.virkningsaktoer = obj.get("virkningsAktoer", None)
         self.metadata = Metadata(obj.get("virksomhedMetadata", None))
-        self.virksomhedsstatus = Virksomhedsstatus(obj.get("virksomhedsstatus", None))
+        self.virksomhedsstatus = [Virksomhedsstatus(vs) for vs in obj.get("virksomhedsstatus", [])]
 
 
 class Aarsbeskaeftigelse:
@@ -206,11 +206,11 @@ class Spaltning:
 class Metadata:
     def __init__(self, obj):
         obj = obj or defaultdict(lambda: None)
-        self.nyeste_navn = obj.get("nyesteNavn", None)
-        self.nyeste_binavne = obj.get("nyesteBinavne", None)
-        self.nyeste_virksomhedsform = obj.get("nyesteVirksomhedsform", None)
-        self.nyeste_beliggenhedsadresse = obj.get("nyesteBeliggenhedsadresse", None)
-        self.nyeste_hovedbranche = obj.get("nyesteHovedbranche", None)
+        self.nyeste_navn = Navn(obj.get("nyesteNavn", None))
+        self.nyeste_binavne = obj.get("nyesteBinavne", [])
+        self.nyeste_virksomhedsform = Virksomhedsform(obj.get("nyesteVirksomhedsform", None))
+        self.nyeste_beliggenhedsadresse = Adresse(obj.get("nyesteBeliggenhedsadresse", None))
+        self.nyeste_hovedbranche = Branche(obj.get("nyesteHovedbranche", None))
         self.nyeste_bibranche1 = obj.get("nyesteBibranche1", None)
         self.nyeste_bibranche2 = obj.get("nyesteBibranche2", None)
         self.nyeste_bibranche3 = obj.get("nyesteBibranche3", None)
@@ -223,6 +223,14 @@ class Metadata:
         self.sammensat_status = obj.get("sammensatStatus", None)
         self.stiftelses_dato = obj.get("stiftelsesDato", None)
         self.virknings_dato = obj.get("virkningsDato", None)
+
+
+class Produktionsenhed:
+    def __init__(self, obj):
+        obj = obj or defaultdict(lambda: None)
+        self.p_nummer = obj.get("pNummer", None)
+        self.periode = Periode(obj.get("periode", None))
+        self.sidst_opdateret = parse_date_time(obj.get("sidstOpdateret", None))
 
 
 class Status:
@@ -239,7 +247,7 @@ class Virksomhedsstatus:
     def __init__(self, obj):
         obj = obj or defaultdict(lambda: None)
         self.status = obj.get("status", None)
-        self.periode = parse_date_time(obj.get("periode", None))
+        self.periode = Periode(obj.get("periode", None))
         self.sidst_opdateret = parse_date_time(obj.get("sidstOpdateret", None))
 
 
@@ -256,5 +264,15 @@ class ObligatoriskEmail:
         obj = obj or defaultdict(lambda: None)
         self.hemmelig = obj.get("hemmelig", None)
         self.kontaktoplysning = obj.get("kontaktoplysning", None)
+        self.periode = Periode(obj.get("periode", None))
+        self.sidst_opdateret = parse_date_time(obj.get("sidstOpdateret", None))
+
+
+class Virksomhedsform:
+    def __init__(self, obj):
+        obj = obj or defaultdict(lambda: None)
+        self.ansvarlig_dataleverandoer = obj.get("ansvarligDataleverandoer", None)
+        self.kort_beskrivelse = obj.get("kortBeskrivelse", None)
+        self.lang_beskrivelse = obj.get("langBeskrivelse", None)
         self.periode = Periode(obj.get("periode", None))
         self.sidst_opdateret = parse_date_time(obj.get("sidstOpdateret", None))
