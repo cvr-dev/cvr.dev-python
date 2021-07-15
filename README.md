@@ -86,4 +86,5 @@ If you just want to check out the market, these are potential alternatives:
 - [Virk's official integration](https://datacvr.virk.dk/data/cvr-hj%C3%A6lp/indgange-til-cvr/system-til-system-adgang)
 - [cvrapi.dk](https://cvrapi.dk)
 - [risika.dk](https://risika.dk)
+- [roaring.io](https://www.roaring.io/)
 - [eanapi.dk](https://eanapi.dk)
