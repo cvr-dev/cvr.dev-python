@@ -6,7 +6,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 setuptools.setup(
     name="cvr",
     description="Official Python client for https://cvr.dev",
-    version="0.2.0",
+    version="0.2.1",
     author="cvr.dev",
     author_email="kontakt@cvr.dev",
     packages=["cvr", "cvr.dto"],
