@@ -36,7 +36,7 @@ class Virksomhed:
         self.oblogatorisk_email = ObligatoriskEmail(obj.get("obligatoriskEmail", None))
         self.penheder = [Produktionsenhed(p) for p in obj.get("penheder", [])]
         self.postadresse = [Adresse(a) for a in obj.get("postadresse", [])]
-        self.reg_nummer = RegNummer(obj.get("regNummer", None))
+        self.reg_nummer = [RegNummer(r) for r in obj.get("regNummer", None)]
         self.reklamebeskyttet = obj.get("reklamebeskyttet", None)
         self.samt_id = obj.get("samtId", None)
         self.sekundaert_telefax_nummer = Kontaktoplysning(obj.get("sekundaertTelefaxNummer", None))
@@ -254,8 +254,8 @@ class Virksomhedsstatus:
 class RegNummer:
     def __init__(self, obj):
         obj = obj or defaultdict(lambda: None)
-        self.reg_nummer = obj.get("regNummer", None)
-        self.periode = parse_date_time(obj.get("periode", None))
+        self.reg_nummer = obj.get("regnummer", None)
+        self.periode = Periode(obj.get("periode", None))
         self.sidst_opdateret = parse_date_time(obj.get("sidstOpdateret", None))
 
 
