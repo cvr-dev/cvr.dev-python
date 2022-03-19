@@ -124,3 +124,9 @@ class TestCVRVirksomheder(unittest.TestCase):
         with Client(api_key=get_api_key()) as client:
             virksomheder = client.cvr.virksomheder(cvr_numre=[10103940, 1337])
             self.assertEqual(0, len(virksomheder))
+
+    def test_regression_virksomhed_with_regnummer(self):
+        """ Regression: verifies that a virksomhed with the regnummer field is parsed correctly.
+        """
+        with Client(api_key=get_api_key()) as client:
+            virksomheder = client.cvr.virksomheder(navn="aldi")
