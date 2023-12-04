@@ -27,13 +27,13 @@ class Virksomhed:
         self.fejl_registreret = obj.get("fejlRegistreret", None)
         self.fejl_ved_indlaesning = obj.get("fejlVedIndlaesning", None)
         self.fusioner = [Fusion(f) for f in obj.get("fusioner", [])]
-        self.hjemmeside = Kontaktoplysning(obj.get("hjemmeside", None))
+        self.hjemmeside = [Kontaktoplysning(k) for k in obj.get("hjemmeside", [])]
         self.hovedbranche = [Branche(b) for b in obj.get("hovedbranche", [])]
         self.kvartalsbeskaeftigelse = [Kvartalsbeskaeftigelse(k) for k in obj.get("kvartalsbeskaeftigelse", [])]
         self.livsforloeb = [Livsforloeb(lf) for lf in obj.get("livsforloeb", [])]
         self.naermeste_fremtidige_dato = obj.get("naermesteFremtidigeDato", None)
         self.navne = [Navn(n) for n in obj.get("navne", [])]
-        self.oblogatorisk_email = ObligatoriskEmail(obj.get("obligatoriskEmail", None))
+        self.oblogatorisk_email = [ObligatoriskEmail(e) for e in obj.get("obligatoriskEmail", [])]
         self.penheder = [Produktionsenhed(p) for p in obj.get("penheder", [])]
         self.postadresse = [Adresse(a) for a in obj.get("postadresse", [])]
         self.reg_nummer = [RegNummer(r) for r in obj.get("regNummer", None)]
@@ -44,7 +44,7 @@ class Virksomhed:
         self.sidst_indlaest = parse_date_time(obj.get("sidstIndlaest", None))
         self.sidst_opdateret = parse_date_time(obj.get("sidstOpdateret", None))
         self.spaltninger = [Spaltning(s) for s in obj.get("spaltninger", [])]
-        self.status = Status(obj.get("status", None))
+        self.status = [Status(s) for s in obj.get("status", [])]
         self.telefax_nummer = [Kontaktoplysning(k) for k in obj.get("telefaxNummer", [])]
         self.telefon_nummer = [Kontaktoplysning(k) for k in obj.get("telefonNummer", [])]
         self.virkningsaktoer = obj.get("virkningsAktoer", None)
